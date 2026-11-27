@@ -1,0 +1,179 @@
+﻿@model SistemaGestionInventario.Models.Proveedor
+
+@{
+    ViewData["Title"] = "Editar Proveedor - StockFlow";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+<style>
+    :root {
+        --sf-bg: #14171c;
+        --sf-surface: #1b2028;
+        --sf-surface-2: #222832;
+        --sf-border: #2c3440;
+        --sf-text: #e6ebf2;
+        --sf-muted: #98a2b3;
+        --sf-accent: #5b8def;
+        --sf-accent-soft: rgba(91, 141, 239, 0.14);
+    }
+
+    body {
+        background-color: var(--sf-bg);
+        color: var(--sf-text);
+    }
+
+    .sf-form-wrapper {
+        max-width: 760px;
+    }
+
+    .sf-brand {
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--sf-accent);
+        font-weight: 600;
+    }
+
+    .sf-card {
+        background-color: var(--sf-surface);
+        border: 1px solid var(--sf-border);
+        border-radius: 12px;
+    }
+
+    .sf-label {
+        font-size: 0.84rem;
+        font-weight: 500;
+        color: #cbd5e1;
+        margin-bottom: 0.4rem;
+    }
+
+    .sf-input {
+        background-color: var(--sf-surface-2);
+        border: 1px solid var(--sf-border);
+        color: var(--sf-text);
+        border-radius: 8px;
+        font-size: 0.92rem;
+    }
+
+        .sf-input:focus {
+            background-color: var(--sf-surface-2);
+            border-color: var(--sf-accent);
+            color: var(--sf-text);
+            box-shadow: 0 0 0 0.2rem var(--sf-accent-soft);
+        }
+
+    .sf-btn-primary {
+        background-color: var(--sf-accent);
+        border: 1px solid var(--sf-accent);
+        color: #f8fafc;
+        font-weight: 500;
+        border-radius: 8px;
+        padding: 0.52rem 1.2rem;
+    }
+
+        .sf-btn-primary:hover {
+            background-color: #4a7de0;
+            border-color: #4a7de0;
+            color: #ffffff;
+        }
+
+    .sf-btn-ghost {
+        color: var(--sf-muted);
+        border: 1px solid var(--sf-border);
+        background-color: transparent;
+        border-radius: 8px;
+        padding: 0.52rem 1.1rem;
+    }
+
+        .sf-btn-ghost:hover {
+            color: var(--sf-text);
+            background-color: var(--sf-surface-2);
+        }
+
+    .form-check-input {
+        background-color: var(--sf-surface-2);
+        border-color: var(--sf-border);
+    }
+
+        .form-check-input:checked {
+            background-color: var(--sf-accent);
+            border-color: var(--sf-accent);
+        }
+</style>
+
+<div class="container py-4 py-md-5 sf-form-wrapper">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <div class="sf-brand">StockFlow</div>
+            <h1 class="h3 fw-semibold mb-1">Editar Proveedor</h1>
+            <p class="small text-secondary mb-0">Actualiza los datos del registro <span class="text-light fw-medium">#@Model.IdProveedor</span>.</p>
+        </div>
+        <a asp-action="Index" class="btn sf-btn-ghost btn-sm">
+            <i class="bi bi-arrow-left me-1"></i> Volver
+        </a>
+    </div>
+
+    <div class="sf-card p-4">
+        <form asp-action="Edit" asp-route-id="@Model.IdProveedor" method="post">
+            <input type="hidden" asp-for="IdProveedor" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small"></div>
+
+            <div class="row g-3">
+                <div class="col-12 col-md-4">
+                    <label asp-for="RUC" class="form-label sf-label">RUC</label>
+                    <input asp-for="RUC" maxlength="11" inputmode="numeric" class="form-control sf-input" />
+                    <span asp-validation-for="RUC" class="text-danger small"></span>
+                </div>
+
+                <div class="col-12 col-md-8">
+                    <label asp-for="RazonSocial" class="form-label sf-label">Razón social</label>
+                    <input asp-for="RazonSocial" maxlength="120" class="form-control sf-input" />
+                    <span asp-validation-for="RazonSocial" class="text-danger small"></span>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label asp-for="Telefono" class="form-label sf-label">Teléfono (opcional)</label>
+                    <input asp-for="Telefono" maxlength="20" class="form-control sf-input" />
+                    <span asp-validation-for="Telefono" class="text-danger small"></span>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label asp-for="Correo" class="form-label sf-label">Correo electrónico (opcional)</label>
+                    <input asp-for="Correo" type="email" maxlength="100" class="form-control sf-input" />
+                    <span asp-validation-for="Correo" class="text-danger small"></span>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Direccion" class="form-label sf-label">Dirección (opcional)</label>
+                    <input asp-for="Direccion" maxlength="200" class="form-control sf-input" />
+                    <span asp-validation-for="Direccion" class="text-danger small"></span>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-check form-switch">
+                        <input asp-for="Activo" class="form-check-input" type="checkbox" />
+                        <label asp-for="Activo" class="form-check-label small text-light">
+                            Proveedor activo para compras
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-4" style="border-color: var(--sf-border);" />
+
+            <div class="d-flex justify-content-end gap-2">
+                <a asp-action="Index" class="btn sf-btn-ghost">Cancelar</a>
+                <button type="submit" class="btn sf-btn-primary">
+                    <i class="bi bi-check2 me-1"></i> Guardar cambios
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
